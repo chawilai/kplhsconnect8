@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::prefix('nakornping')->group(function () {
+    Route::get('/', [PagesController::class, 'index']);
+    Route::get('/dashboard', fn() => view('dashboard'))->middleware(['auth']);
+    Route::get('/prep', fn() => view('welcome'))->middleware(['auth']);
+});
 
 require __DIR__.'/auth.php';
